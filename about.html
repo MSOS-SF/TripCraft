@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | TripCraft</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <nav class="navbar scrolled">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-black tracking-tighter flex items-center gap-2">
+                <i data-lucide="plane-takeoff" class="text-accent"></i>
+                TRIPCRAFT
+            </a>
+            <div class="hidden md:flex gap-8 items-center">
+                <a href="index.html">Home</a>
+                <a href="planner.html">Planner</a>
+                <a href="about.html" class="text-accent">About</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto px-6 pt-32 pb-24">
+        <div class="max-w-3xl mx-auto">
+            <h1 class="text-6xl mb-12">Travel planning, evolved.</h1>
+            <div class="space-y-12 text-lg text-text-dim">
+                <p>TripCraft was born from a simple observation: the world is full of incredible places, but the time spent planning how to see them is often overwhelming. We believe that technology should handle the logistics, so you can focus on the experience.</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="glass p-8">
+                        <h3 class="text-white text-xl mb-4">Our Mission</h3>
+                        <p>To empower every traveler with personalized, AI-driven insights that turn a simple trip into a lifelong memory.</p>
+                    </div>
+                    <div class="glass p-8">
+                        <h3 class="text-white text-xl mb-4">Our Technology</h3>
+                        <p>We leverage state-of-the-art language models to analyze travel patterns, local insights, and personal preferences in real-time.</p>
+                    </div>
+                </div>
+
+                <p>Whether you're looking for a quiet weekend escape or a high-energy city break, TripCraft is your digital concierge, working behind the scenes to craft the perfect itinerary.</p>
+                
+                <div class="pt-12 text-center">
+                    <a href="planner.html" class="btn btn-primary text-xl px-12 py-6">Start Your Journey</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script type="module" src="js/main.js"></script>
+    <script>lucide.createIcons();</script>
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Itinerary | TripCraft</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        window.GEMINI_API_KEY = "ab07a3dbce881ab911f119f657bcc5180f957361";
+        window.ANTHROPIC_API_KEY = "sk-ant-your-key-here";
+    </script>
+</head>
+<body>
+    <nav class="navbar scrolled">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-black tracking-tighter flex items-center gap-2">
+                <i data-lucide="plane-takeoff" class="text-accent"></i>
+                TRIPCRAFT
+            </a>
+            <div class="flex gap-6 items-center">
+                <a href="index.html">Home</a>
+                <a href="planner.html">Planner</a>
+                <a href="explore.html">Explore</a>
+                <a href="saved.html">Saved</a>
+                <div id="auth-container"></div>
+                <button id="save-trip-btn" class="btn btn-accent btn-sm hidden">
+                    <i data-lucide="bookmark"></i> Save Trip
+                </button>
+                <button class="btn btn-secondary btn-sm" onclick="window.print()">
+                    <i data-lucide="download"></i> Export
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div id="results-loader" class="fixed inset-0 bg-[#020617] z-[2000] flex flex-col items-center justify-center">
+        <div class="relative w-24 h-24 mb-8">
+            <div class="absolute inset-0 border-4 border-accent/20 rounded-full"></div>
+            <div class="absolute inset-0 border-4 border-accent border-t-transparent rounded-full animate-spin"></div>
+        </div>
+        <h2 class="text-3xl font-bold tracking-tight mb-2">Crafting your perfect escape...</h2>
+        <p class="text-text-dim text-lg">Our AI is analyzing the best spots for you.</p>
+    </div>
+
+    <main class="container mx-auto px-6 pt-32 pb-24 relative">
+        <!-- Manual Test Button -->
+        <div id="manual-test-container" class="max-w-2xl mx-auto text-center py-4 mb-8">
+            <button id="manual-test-btn" class="btn btn-secondary btn-sm">
+                <i data-lucide="play"></i> Run Manual AI Test
+            </button>
+        </div>
+
+        <!-- Route Path Motif -->
+        <div class="absolute top-0 left-0 w-full h-full pointer-events-none opacity-[0.03] z-[-1] overflow-hidden">
+            <svg width="100%" height="100%" viewBox="0 0 1000 1000" preserveAspectRatio="none">
+                <path d="M0,100 Q250,0 500,100 T1000,100 T1500,100" fill="none" stroke="var(--accent)" stroke-width="2" stroke-dasharray="10,10" />
+                <path d="M-100,300 Q150,200 400,300 T900,300 T1400,300" fill="none" stroke="var(--accent)" stroke-width="1" stroke-dasharray="5,5" />
+                <path d="M100,600 Q350,500 600,600 T1100,600 T1600,600" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="8,8" />
+            </svg>
+        </div>
+
+        <!-- Error State -->
+        <div id="error-container" class="hidden max-w-2xl mx-auto text-center py-20 glass rounded-3xl border border-red-500/20">
+            <div class="w-20 h-20 bg-red-500/10 text-red-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                <i data-lucide="alert-circle" class="w-10 h-10"></i>
+            </div>
+            <h2 class="text-3xl font-bold mb-4">AI Generation Failed</h2>
+            <p id="error-message" class="text-text-dim text-lg mb-8">AI generation took too long or returned invalid data.</p>
+            <button id="retry-btn" class="btn btn-accent">
+                <i data-lucide="refresh-cw"></i> Try Again
+            </button>
+        </div>
+
+        <!-- Options Selection -->
+        <div id="options-selection" class="hidden mb-24">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-black tracking-tight mb-4">Choose Your Adventure</h2>
+                <p class="text-text-dim text-xl">We've crafted two unique ways to experience your destination.</p>
+            </div>
+            <div id="options-container" class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                <!-- Option cards will be injected here -->
+            </div>
+        </div>
+
+        <div id="results-content" class="hidden">
+            <div class="results-hero reveal active mb-20">
+            <h1 id="res-title" class="text-6xl md:text-8xl font-black mb-6 tracking-tighter">The Ultimate Escape</h1>
+            <p id="res-tagline" class="text-2xl text-text-dim mb-8 max-w-2xl mx-auto">A personalized journey through the heart of the city.</p>
+            <div class="flex justify-center items-center gap-4 py-3 px-6 bg-accent/10 rounded-full w-fit mx-auto border border-accent/20">
+                <i data-lucide="map-pin" class="w-6 h-6 text-accent"></i>
+                <span id="res-dest-name" class="text-accent font-bold text-lg">Destination</span>
+            </div>
+        </div>
+
+        <!-- Budget Section (Moved to Top) -->
+        <section class="mb-24">
+            <div class="flex flex-col items-center gap-3 mb-8 text-center">
+                <i data-lucide="wallet" class="text-accent w-8 h-8"></i>
+                <h2 class="text-3xl">Budget Breakdown</h2>
+            </div>
+            <div id="budget-container">
+                <!-- Budget summary card -->
+            </div>
+        </section>
+
+        <!-- Itinerary Section -->
+        <section>
+            <div class="flex flex-col items-center gap-3 mb-12 text-center">
+                <h2 class="text-3xl">Daily Itinerary</h2>
+            </div>
+            <div id="itinerary-container" class="space-y-12">
+                <!-- Day cards -->
+            </div>
+        </section>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mt-24">
+            <div class="glass p-8 reveal active">
+                <h3 class="text-xl mb-6 flex items-center gap-2">
+                    <i data-lucide="package" class="text-accent"></i> Packing Essentials
+                </h3>
+                <ul id="packing-list" class="space-y-3 text-text-dim"></ul>
+            </div>
+            <div class="glass p-8 reveal active">
+                <h3 class="text-xl mb-6 flex items-center gap-2">
+                    <i data-lucide="info" class="text-accent"></i> Travel Tips
+                </h3>
+                <ul id="travel-tips" class="space-y-3 text-text-dim"></ul>
+            </div>
+        </div>
+        </div>
+    </main>
+
+    <script type="module" src="js/results.js"></script>
+    <script type="module" src="js/main.js"></script>
+    <script>lucide.createIcons();</script>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+   
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TripCraft | Plan Smarter Trips in Seconds</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        window.GEMINI_API_KEY = "AIzaSyCWyXPa3gPk8NiCFoLizcM_7qOcmGSAN-U";
+    </script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-black tracking-tighter flex items-center gap-2">
+                <i data-lucide="plane-takeoff" class="text-accent"></i>
+                TRIPCRAFT
+            </a>
+            <div class="hidden md:flex gap-6 items-center">
+                <a href="index.html" class="font-medium hover:text-accent transition">Home</a>
+                <a href="planner.html" class="font-medium hover:text-accent transition">Planner</a>
+                <a href="explore.html" class="font-medium hover:text-accent transition">Explore</a>
+                <a href="saved.html" class="font-medium hover:text-accent transition">Saved</a>
+                <div id="auth-container"></div>
+                <button id="theme-toggle" class="p-2 rounded-full hover:bg-surface transition">
+                    <i data-lucide="moon" class="w-5 h-5"></i>
+                </button>
+                <a href="planner.html" class="btn btn-primary btn-sm">Start Planning</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero overflow-hidden">
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="max-w-2xl">
+                <div class="reveal active mb-4">
+                    <span class="px-3 py-1 bg-accent/10 text-accent rounded-full text-sm font-bold tracking-wide">AI-POWERED TRAVEL</span>
+                </div>
+                <h1 class="text-6xl md:text-8xl mb-6 reveal active">Plan smarter trips in seconds.</h1>
+                <p class="text-xl text-text-dim mb-10 reveal active">TripCraft builds personalized day-by-day itineraries with destination highlights, food picks, and budget guidance tailored to your vibe.</p>
+                <div class="flex flex-wrap gap-4 reveal active">
+                    <a href="planner.html" class="btn btn-primary text-lg px-8 py-4">Build My Trip</a>
+                    <a href="explore.html" class="btn btn-secondary text-lg px-8 py-4">Explore Destinations</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="airplane-container">
+            <div class="cloud w-64 h-32 top-1/4 -right-20"></div>
+            <div class="cloud w-96 h-48 bottom-1/4 right-1/4 opacity-40"></div>
+            <div class="airplane-wrapper">
+                <div id="airplane-3d-canvas" class="w-full h-full flex items-center justify-center">
+                    <div class="airplane-loader text-accent flex flex-col items-center gap-4">
+                        <i data-lucide="loader-2" class="w-12 h-12 animate-spin"></i>
+                        <span class="text-sm font-bold tracking-widest uppercase">Loading 3D Aircraft...</span>
+                    </div>
+                </div>
+                <div class="airplane-shadow w-64 h-12 bg-black/20 blur-xl rounded-full absolute -bottom-20 left-1/2 -translate-x-1/2"></div>
+            </div>
+        </div>
+    </header>
+
+    <section class="py-24 bg-bg-alt">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl mb-16 text-center">Engineered for the modern traveler.</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                <div class="glass p-8 reveal active">
+                    <i data-lucide="sparkles" class="text-accent w-10 h-10 mb-6"></i>
+                    <h3 class="text-xl mb-4">AI-Driven Logic</h3>
+                    <p class="text-text-dim">Our proprietary engine analyzes thousands of spots to find the ones that match your specific travel style.</p>
+                </div>
+                <div class="glass p-8 reveal active">
+                    <i data-lucide="wallet" class="text-accent w-10 h-10 mb-6"></i>
+                    <h3 class="text-xl mb-4">Budget Precision</h3>
+                    <p class="text-text-dim">Get realistic cost estimates for every part of your journey, from flights to local street food.</p>
+                </div>
+                <div class="glass p-8 reveal active">
+                    <i data-lucide="map" class="text-accent w-10 h-10 mb-6"></i>
+                    <h3 class="text-xl mb-4">Dynamic Itineraries</h3>
+                    <p class="text-text-dim">Plans that breathe. We balance iconic landmarks with hidden gems and essential downtime.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script type="module">
+        import { initAirplane } from './js/airplane.js';
+        import './js/main.js';
+        
+        window.airplaneSystem = initAirplane();
+        lucide.createIcons();
+    </script>
+</body>
+</html>

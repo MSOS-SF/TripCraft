@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plan Your Trip | TripCraft</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        window.GEMINI_API_KEY = "AIzaSyCWyXPa3gPk8NiCFoLizcM_7qOcmGSAN-U";
+    </script>
+</head>
+<body>
+    <nav class="navbar scrolled">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-black tracking-tighter flex items-center gap-2">
+                <i data-lucide="plane-takeoff" class="text-accent"></i>
+                TRIPCRAFT
+            </a>
+            <div class="flex gap-6 items-center">
+                <a href="index.html">Home</a>
+                <a href="planner.html" class="text-accent">Planner</a>
+                <a href="explore.html">Explore</a>
+                <a href="saved.html">Saved</a>
+                <div id="auth-container"></div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto px-6 pt-32">
+        <div class="reveal active mb-8 flex items-center gap-4">
+            <div class="w-12 h-12 bg-accent/10 rounded-full flex items-center justify-center text-accent">
+                <i data-lucide="plane" class="w-6 h-6 animate-pulse"></i>
+            </div>
+            <div>
+                <h1 class="text-3xl font-bold">Trip Studio</h1>
+                <p class="text-text-dim">Configure your perfect escape</p>
+            </div>
+        </div>
+        <div class="planner-grid">
+            <!-- Left: Form -->
+            <div class="planner-form-container">
+                <form id="planner-form">
+                    <div class="form-section reveal active">
+                        <h3>1. Trip Basics</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="input-group">
+                                <label>Destination</label>
+                                <input type="text" id="destination" name="destination" placeholder="Where to?" list="city-list" required autocomplete="off">
+                                <datalist id="city-list">
+                                    <!-- Cities will be populated dynamically -->
+                                </datalist>
+                            </div>
+                            <div class="input-group">
+                                <label>Number of Days</label>
+                                <input type="number" id="days-count" name="days-count" min="1" max="30" value="3" required>
+                            </div>
+                            <div class="input-group">
+                                <label>Budget Tier</label>
+                                <select name="budget" id="budget">
+                                    <option value="budget">Budget (Essential)</option>
+                                    <option value="mid-range" selected>Mid-Range (Comfort)</option>
+                                    <option value="premium">Premium (Luxury)</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <label>Travel Group</label>
+                                <select name="group" id="group">
+                                    <option value="solo">Solo Traveler</option>
+                                    <option value="couple" selected>Couple</option>
+                                    <option value="family">Family</option>
+                                    <option value="friends">Group of Friends</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <label>Number of Travelers</label>
+                                <input type="number" id="travelers-count" name="travelers-count" min="1" max="20" value="2" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section reveal active">
+                        <h3>2. Travel Style</h3>
+                        <div class="style-grid">
+                            <label class="style-card">
+                                <input type="radio" name="style" value="chill" class="hidden">
+                                <i data-lucide="coffee" class="mx-auto mb-2"></i>
+                                <strong>Chill</strong>
+                                <p class="text-xs text-text-dim">Slow pace, lots of cafes</p>
+                            </label>
+                            <label class="style-card active">
+                                <input type="radio" name="style" value="balanced" checked class="hidden">
+                                <i data-lucide="balance" class="mx-auto mb-2"></i>
+                                <strong>Balanced</strong>
+                                <p class="text-xs text-text-dim">The best of both worlds</p>
+                            </label>
+                            <label class="style-card">
+                                <input type="radio" name="style" value="packed" class="hidden">
+                                <i data-lucide="zap" class="mx-auto mb-2"></i>
+                                <strong>Packed</strong>
+                                <p class="text-xs text-text-dim">See everything possible</p>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-section reveal active">
+                        <h3>3. Interests</h3>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input type="checkbox" name="interests" value="food" checked> Food & Dining
+                            </label>
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input type="checkbox" name="interests" value="history"> History
+                            </label>
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input type="checkbox" name="interests" value="art"> Art & Design
+                            </label>
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input type="checkbox" name="interests" value="nature"> Nature
+                            </label>
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input type="checkbox" name="interests" value="nightlife"> Nightlife
+                            </label>
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input type="checkbox" name="interests" value="shopping"> Shopping
+                            </label>
+                        </div>
+                        
+                        <div class="mt-8 pt-8 border-t border-border">
+                            <label class="flex items-center gap-3 cursor-pointer">
+                                <input type="checkbox" id="adult-only-toggle"> 
+                                <div>
+                                    <strong>Adult-only recommendations</strong>
+                                    <p class="text-xs text-text-dim">Include cocktail bars, casinos, and late-night venues.</p>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-full text-lg py-4">Generate My Itinerary</button>
+                </form>
+            </div>
+
+            <!-- Right: Live Preview -->
+            <div class="hidden lg:block">
+                <div class="preview-card glass reveal active" id="live-preview-card">
+                    <div class="flex justify-between items-start mb-6">
+                        <h3 class="text-2xl preview-dest">Your Destination</h3>
+                        <span class="badge preview-days">3 Days</span>
+                    </div>
+                    <div class="space-y-4 mb-8">
+                        <div class="flex justify-between text-sm">
+                            <span class="text-text-dim">Budget</span>
+                            <span class="font-bold preview-budget">Mid-Range</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-text-dim">Style</span>
+                            <span class="font-bold preview-style">Balanced</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-text-dim">Group</span>
+                            <span class="font-bold preview-group">Couple (2)</span>
+                        </div>
+                    </div>
+                    <div class="mb-8">
+                        <span class="text-xs text-text-dim block mb-2 uppercase tracking-widest">Interests</span>
+                        <div class="flex flex-wrap gap-2 preview-interests">
+                            <!-- Interests badges -->
+                        </div>
+                    </div>
+                    <div class="pt-6 border-t border-border">
+                        <div class="flex items-center gap-3 text-accent">
+                            <i data-lucide="sparkles" class="w-5 h-5"></i>
+                            <span class="text-sm font-bold">AI Engine Ready</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script type="module" src="js/planner.js"></script>
+    <script type="module" src="js/main.js"></script>
+    <script>lucide.createIcons();</script>
+</body>
+</html>

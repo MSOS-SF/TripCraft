@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore | TripCraft</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <nav class="navbar scrolled">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-black tracking-tighter flex items-center gap-2">
+                <i data-lucide="plane-takeoff" class="text-accent"></i>
+                TRIPCRAFT
+            </a>
+            <div class="flex gap-6 items-center">
+                <a href="index.html">Home</a>
+                <a href="planner.html">Planner</a>
+                <a href="explore.html" class="text-accent">Explore</a>
+                <a href="saved.html">Saved</a>
+                <div id="auth-container"></div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto px-6 pt-32 pb-24 relative">
+        <!-- Destination Path Graphics -->
+        <div class="absolute top-0 left-0 w-full h-full pointer-events-none opacity-[0.02] z-[-1] overflow-hidden">
+            <svg width="100%" height="100%" viewBox="0 0 1000 1000" preserveAspectRatio="none">
+                <circle cx="100" cy="100" r="5" fill="var(--accent)" />
+                <circle cx="900" cy="900" r="5" fill="var(--accent)" />
+                <path d="M100,100 Q500,500 900,900" fill="none" stroke="var(--accent)" stroke-width="1" stroke-dasharray="5,5" />
+                <circle cx="800" cy="200" r="4" fill="var(--accent)" />
+                <path d="M100,100 Q450,150 800,200" fill="none" stroke="var(--accent)" stroke-width="1" stroke-dasharray="3,3" />
+            </svg>
+        </div>
+
+        <div class="mb-16 text-center">
+            <h1 class="text-5xl mb-4">Explore the World</h1>
+            <p class="text-xl text-text-dim">Discover curated destinations for your next escape.</p>
+        </div>
+
+        <div class="flex flex-col md:flex-row gap-4 mb-12">
+            <div class="flex-1 relative">
+                <i data-lucide="search" class="absolute left-4 top-1/2 -translate-y-1/2 text-text-dim w-5 h-5"></i>
+                <input type="text" id="explore-search" placeholder="Search by city or vibe..." class="w-full bg-surface border border-border pl-12 pr-4 py-3 rounded-xl focus:outline-none focus:border-accent">
+            </div>
+            <button id="search-btn" class="btn btn-primary px-8">Search</button>
+        </div>
+
+        <div id="explore-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Destination cards -->
+        </div>
+    </main>
+
+    <script type="module" src="js/explore.js"></script>
+    <script type="module" src="js/main.js"></script>
+    <script>lucide.createIcons();</script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile information",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "displayName": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email"]
+    },
+    "Trip": {
+      "title": "Trip",
+      "description": "A saved travel itinerary",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "Owner's user ID" },
+        "destination": { "type": "string" },
+        "startDate": { "type": "string" },
+        "days": { "type": "string" },
+        "budget": { "type": "string" },
+        "group": { "type": "string" },
+        "travelers": { "type": "string" },
+        "style": { "type": "string" },
+        "interests": { "type": "array", "items": { "type": "string" } },
+        "itinerary": { "type": "object", "description": "The full generated itinerary JSON" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "destination", "itinerary", "createdAt"]
+    }
+  },
+  "firestore": {
+    "users/{userId}": {
+      "schema": "User",
+      "description": "User profiles"
+    },
+    "trips/{tripId}": {
+      "schema": "Trip",
+      "description": "Saved itineraries"
+    }
+  }
+}

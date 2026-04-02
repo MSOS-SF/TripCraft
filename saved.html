@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saved Trips | TripCraft</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <nav class="navbar scrolled">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-black tracking-tighter flex items-center gap-2">
+                <i data-lucide="plane-takeoff" class="text-accent"></i>
+                TRIPCRAFT
+            </a>
+            <div class="flex gap-6 items-center">
+                <a href="index.html">Home</a>
+                <a href="planner.html">Planner</a>
+                <a href="explore.html">Explore</a>
+                <a href="saved.html" class="text-accent">Saved</a>
+                <div id="auth-container"></div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto px-6 pt-32 pb-24">
+        <div class="reveal active mb-12">
+            <h1 class="text-4xl font-bold mb-2">Saved Trips</h1>
+            <p class="text-text-dim">Your personal collection of travel itineraries</p>
+        </div>
+
+        <div id="login-prompt" class="hidden glass p-12 text-center reveal active">
+            <i data-lucide="lock" class="w-16 h-16 text-accent mx-auto mb-6"></i>
+            <h2 class="text-2xl mb-4">Sign in to see your trips</h2>
+            <p class="text-text-dim mb-8">Connect your Google account to save and manage your travel plans.</p>
+            <button id="login-btn-prompt" class="btn btn-primary">
+                <i data-lucide="log-in"></i> Sign In with Google
+            </button>
+        </div>
+
+        <div id="saved-trips-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Saved trip cards -->
+        </div>
+
+        <div id="empty-state" class="hidden glass p-12 text-center reveal active">
+            <i data-lucide="map" class="w-16 h-16 text-accent mx-auto mb-6"></i>
+            <h2 class="text-2xl mb-4">No trips saved yet</h2>
+            <p class="text-text-dim mb-8">Start planning your next adventure and save it to your profile.</p>
+            <a href="planner.html" class="btn btn-primary">Start Planning</a>
+        </div>
+    </main>
+
+    <script type="module" src="js/saved.js"></script>
+    <script type="module" src="js/main.js"></script>
+    <script>lucide.createIcons();</script>
+</body>
+</html>
