@@ -1,0 +1,22 @@
+# TripCraft TODO
+
+- [ ] Dark theme with glassmorphism design (Inter + Manrope fonts, sky-blue accent)
+- [ ] Landing page with hero section, features grid, and CTA buttons
+- [ ] Navigation bar with links to Home, Planner, Explore, Saved
+- [ ] Planner page with destination input, days, budget tier, group type, interests checkboxes, adult-only toggle
+- [ ] Live preview card on planner page showing selected options
+- [ ] City autocomplete/datalist with curated city database
+- [ ] Server-side AI itinerary generation using built-in LLM with structured JSON output
+- [ ] LLM prompt that requests specific real-world venue names (restaurants, clubs, landmarks) based on interests
+- [ ] Separate search logic for nightlife (bars, clubs, lounges) vs adult-only (strip clubs, weed clubs, adult venues)
+- [ ] Budget-aware recommendations across three tiers (Budget, Mid-Range, Premium)
+- [ ] Dual itinerary options: Popular & Iconic vs Hidden Gems with different real venues
+- [ ] Results page with daily itineraries (morning/afternoon/evening), budget breakdown, packing essentials, travel tips
+- [ ] Option cards to select between two itinerary variants
+- [ ] Explore page with city grid, search/filter by name or vibe
+- [ ] Saved trips page with auth-gated access
+- [ ] Save trip functionality to database
+- [ ] Delete saved trip functionality
+- [ ] Database schema for saved trips (user_id, destination, days, budget, itinerary JSON, etc.)
+- [ ] tRPC routers for generateItinerary, saveTrip, listSavedTrips, deleteTrip
+- [ ] Vitest tests for trip generation and save/delete procedures

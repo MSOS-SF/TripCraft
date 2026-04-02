@@ -1,11 +1,10 @@
-import { eq } from "drizzle-orm";
+import { eq, desc } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, users } from "../drizzle/schema";
+import { InsertUser, users, trips, InsertTrip, Trip } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
 let _db: ReturnType<typeof drizzle> | null = null;
 
-// Lazily create the drizzle instance so local tooling can run without a DB.
 export async function getDb() {
   if (!_db && process.env.DATABASE_URL) {
     try {
@@ -89,4 +88,38 @@ export async function getUserByOpenId(openId: string) {
   return result.length > 0 ? result[0] : undefined;
 }
 
-// TODO: add feature queries here as your schema grows.
+// Trip helpers
+
+export async function saveTrip(data: InsertTrip): Promise<number> {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  const [result] = await db.insert(trips).values(data).$returningId();
+  return result.id;
+}
+
+export async function getUserTrips(userId: number): Promise<Trip[]> {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  return db.select().from(trips).where(eq(trips.userId, userId)).orderBy(desc(trips.createdAt));
+}
+
+export async function deleteTrip(tripId: number, userId: number): Promise<boolean> {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  const existing = await db.select().from(trips).where(eq(trips.id, tripId)).limit(1);
+  if (existing.length === 0 || existing[0].userId !== userId) return false;
+
+  await db.delete(trips).where(eq(trips.id, tripId));
+  return true;
+}
+
+export async function getTripById(tripId: number): Promise<Trip | undefined> {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  const result = await db.select().from(trips).where(eq(trips.id, tripId)).limit(1);
+  return result.length > 0 ? result[0] : undefined;
+}
