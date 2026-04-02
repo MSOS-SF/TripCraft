@@ -207,7 +207,7 @@ export default function Planner() {
                     Adult-only recommendations
                   </div>
                   <p className="text-sm text-muted-foreground">
-                    Include cocktail bars, casinos, strip clubs, weed clubs, and late-night adult venues.
+                    Recommendations for ages 18+. Includes mature entertainment options.
                   </p>
                 </div>
               </label>
