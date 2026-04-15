@@ -8,8 +8,16 @@ import { Switch } from "@/components/ui/switch";
 import { trpc } from "@/lib/trpc";
 import { useLocation } from "wouter";
 import { CITIES } from "@shared/cities";
-import { Loader2, MapPin, Calendar, Wallet, Users, Heart, AlertTriangle, Sparkles } from "lucide-react";
+import { Loader2, MapPin, Calendar, Wallet, Users, Heart, AlertTriangle, Sparkles, Settings } from "lucide-react";
 import { toast } from "sonner";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 const INTERESTS = [
   { id: "food", label: "Food & Dining", icon: "🍽️" },
@@ -68,6 +76,39 @@ export default function Planner() {
   return (
     <div className="min-h-screen pt-24 pb-16">
       <div className="container max-w-5xl">
+        {/* Settings Button */}
+        <div className="flex justify-end mb-6">
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button variant="outline" size="icon" className="rounded-full">
+                <Settings className="w-5 h-5" />
+              </Button>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Trip Preferences</DialogTitle>
+                <DialogDescription>
+                  Configure additional options for your itinerary
+                </DialogDescription>
+              </DialogHeader>
+              <div className="space-y-4">
+                <label className="flex items-center gap-4 p-4 rounded-xl border border-border bg-secondary/30 cursor-pointer">
+                  <Switch checked={adultOnly} onCheckedChange={setAdultOnly} />
+                  <div>
+                    <div className="font-bold flex items-center gap-2">
+                      <AlertTriangle className="w-4 h-4 text-yellow-500" />
+                      Adult-only recommendations
+                    </div>
+                    <p className="text-sm text-muted-foreground">
+                      Recommendations for ages 18+. Includes mature entertainment options.
+                    </p>
+                  </div>
+                </label>
+              </div>
+            </DialogContent>
+          </Dialog>
+        </div>
+
         <div className="text-center mb-12">
           <h1 className="text-4xl md:text-5xl font-black tracking-tight">
             Plan Your <span className="text-primary">Trip</span>
@@ -198,20 +239,7 @@ export default function Planner() {
               ))}
             </div>
 
-            <div className="border-t border-border pt-6">
-              <label className="flex items-center gap-4 p-4 rounded-xl border border-border bg-secondary/30 cursor-pointer">
-                <Switch checked={adultOnly} onCheckedChange={setAdultOnly} />
-                <div>
-                  <div className="font-bold flex items-center gap-2">
-                    <AlertTriangle className="w-4 h-4 text-yellow-500" />
-                    Adult-only recommendations
-                  </div>
-                  <p className="text-sm text-muted-foreground">
-                    Recommendations for ages 18+. Includes mature entertainment options.
-                  </p>
-                </div>
-              </label>
-            </div>
+
           </div>
 
           {/* Submit */}
